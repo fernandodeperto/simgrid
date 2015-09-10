@@ -635,6 +635,8 @@ void smpi_mpi_send(void *buf, int count, MPI_Datatype datatype, int dst,
   request = build_request(buf==MPI_BOTTOM ? (void*)0 : buf, count, datatype, smpi_process_index(), smpi_group_index(smpi_comm_group(comm), dst), tag,
                           comm, NON_PERSISTENT | SEND);
 
+  //XBT_INFO("smpi_mpi_send %d %d %d", smpi_process_index(), dst, count * datatype->size);
+
   smpi_mpi_start(request);
   smpi_mpi_wait(&request, MPI_STATUS_IGNORE);
   request = NULL;
